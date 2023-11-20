@@ -2,7 +2,6 @@
 
 Commonly used libraries and options are here.
 """
-# Author: Dongjin Yoon <djyoon0223@gmail.com>
 
 # Internal library
 import sys

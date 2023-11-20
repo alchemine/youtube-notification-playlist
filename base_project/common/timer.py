@@ -2,7 +2,6 @@
 
 Context and decorator form timer.
 """
-# Author: Dongjin Yoon <djyoon0223@gmail.com>
 
 from base_project.common.logging import *
 

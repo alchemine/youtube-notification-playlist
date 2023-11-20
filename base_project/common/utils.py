@@ -2,7 +2,6 @@
 
 Commonly used functions and classes are here.
 """
-# Author: Dongjin Yoon <djyoon0223@gmail.com>
 
 from base_project.common.env import *
 

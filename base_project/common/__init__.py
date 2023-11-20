@@ -4,7 +4,6 @@ Examples
 --------
 >>> from base_project.common import *
 """
-# Author: Dongjin Yoon <djyoon0223@gmail.com>
 
 from .depth_logging import *
 from .env import *

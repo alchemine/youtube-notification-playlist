@@ -1,4 +1,4 @@
-from base_project.common import *
+from base_project._utils import *
 
 
 @D
