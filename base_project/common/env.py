@@ -28,13 +28,13 @@ import logging
 
 
 # External library
-import yaml
-import numpy as np
-from tqdm import tqdm, trange
-import pandas as pd
-import joblib
-from switch import Switch
-from tabulate import tabulate
+# import yaml
+# import numpy as np
+# from tqdm import tqdm, trange
+# import pandas as pd
+# import joblib
+# from switch import Switch
+# from tabulate import tabulate
 # import numba as nb
 # from numba import njit, cuda
 # import dask
@@ -45,35 +45,35 @@ from tabulate import tabulate
 #
 #
 # Plot library
-import matplotlib.pyplot as plt
-from matplotlib.cbook import boxplot_stats
-import seaborn as sns
-
-# Plot options
-"""
-# Use korean fonts
-$ sudo apt-get install fonts-nanum* fontconfig
-$ sudo fc-cache -fv
-$ sudo cp /usr/share/fonts/truetype/nanum/Nanum* /opt/conda/envs/caret/lib/python3.8/site-packages/matplotlib/mpl-data/fonts/ttf/
-$ rm -rf /root/.cache/matplotlib/*
-"""
-from pandas.plotting import register_matplotlib_converters
-register_matplotlib_converters()
-# plt.rc('font', family='NanumGothic')
-plt.rc('font', family='DejaVu Sans')
-plt.rc('axes', unicode_minus=False)
-plt.rc('font', size=20)
-plt.rc('figure', titlesize=40, titleweight='bold')
-plt.style.use('ggplot')
-
-
-# Set options
-np.set_printoptions(suppress=True, precision=6, edgeitems=20, linewidth=100, formatter={"float": lambda x: "{:.3f}".format(x)})
-pd.set_option('display.max_rows', 1000)
-pd.set_option('display.max_columns', 1000)
-pd.set_option('display.max_colwidth', 1000)
-pd.set_option('display.width', 1000)
-pd.set_option('display.float_format', '{:.2f}'.format)
+# import matplotlib.pyplot as plt
+# from matplotlib.cbook import boxplot_stats
+# import seaborn as sns
+#
+# # Plot options
+# """
+# # Use korean fonts
+# $ sudo apt-get install fonts-nanum* fontconfig
+# $ sudo fc-cache -fv
+# $ sudo cp /usr/share/fonts/truetype/nanum/Nanum* /opt/conda/envs/caret/lib/python3.8/site-packages/matplotlib/mpl-data/fonts/ttf/
+# $ rm -rf /root/.cache/matplotlib/*
+# """
+# from pandas.plotting import register_matplotlib_converters
+# register_matplotlib_converters()
+# # plt.rc('font', family='NanumGothic')
+# plt.rc('font', family='DejaVu Sans')
+# plt.rc('axes', unicode_minus=False)
+# plt.rc('font', size=20)
+# plt.rc('figure', titlesize=40, titleweight='bold')
+# plt.style.use('ggplot')
+#
+#
+# # Set options
+# np.set_printoptions(suppress=True, precision=6, edgeitems=20, linewidth=100, formatter={"float": lambda x: "{:.3f}".format(x)})
+# pd.set_option('display.max_rows', 1000)
+# pd.set_option('display.max_columns', 1000)
+# pd.set_option('display.max_colwidth', 1000)
+# pd.set_option('display.width', 1000)
+# pd.set_option('display.float_format', '{:.2f}'.format)
 
 
 # Warning
