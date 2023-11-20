@@ -1,0 +1,20 @@
+version: "3.8"
+
+services:
+  compute:
+    build:
+      context: .
+    hostname: "dev"
+    ports:
+      - 10022:22
+      - 8501:8501
+      - 8888:8888
+    volumes:
+      - .:/project
+    environment:
+      - PATH=/root/.local/bin/poetry:$PATH
+    working_dir: /project
+    command: poetry run python -m base_project.launch --dev
+    privileged: true
+    ipc: host
+    tty: true
