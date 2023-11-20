@@ -45,9 +45,12 @@ class LoggerFactory(metaclass=MetaSingleton):
         cls.dev = args.dev
 
 
-log  = lambda *msgs: LoggerFactory().logger.info(' '.join(lmap(str, msgs)))
-dlog = lambda *msgs: LoggerFactory().logger.debug(' '.join(lmap(str, msgs)))
-
-
 def initialize_logger(args):
     LoggerFactory.set(args)
+
+
+# ----------------------------------------------------------------------------------------------------
+# Utility functions
+# ----------------------------------------------------------------------------------------------------
+log  = lambda *msgs: LoggerFactory().logger.info(' '.join(lmap(str, msgs)))
+dlog = lambda *msgs: LoggerFactory().logger.debug(' '.join(lmap(str, msgs)))
