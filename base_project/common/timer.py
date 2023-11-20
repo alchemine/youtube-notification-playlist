@@ -26,7 +26,7 @@ class Timer(contextlib.ContextDecorator):
 
     def __exit__(self, *exc):
         elapsed_time = perf_counter() - self.start_time
-        log(f"{'* ' + self.name:15}| {elapsed_time:.2f}s ({elapsed_time/60:.2f}m)")
+        log(f"{'* ' + self.name:30}| {elapsed_time:.2f}s ({elapsed_time/60:.2f}m)")
         return False
 
 
@@ -41,7 +41,7 @@ def T(fn):
     """
     @wraps(fn)
     def _log(*args, **kwargs):
-        with Timer():
+        with Timer(fn.__name__):
             rst = fn(*args, **kwargs)
         return rst
     return _log
