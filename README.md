@@ -47,10 +47,10 @@ base-project
 │   │   ├── logging.py
 │   │   ├── timer.py
 │   │   └── utils.py
+│   ├── _utils.py
 │   ├── configs.yaml
 │   └── launch.py
-├── poetry.lock
-└── pyproject.toml
+└── .gitignore
 ```
 
 # 2. `common` Package
