@@ -77,3 +77,11 @@ import logging
 
 # Warning
 warnings.filterwarnings('ignore')
+
+# Logging
+logging.basicConfig(
+    level=logging.DEBUG,
+    format="[%(asctime)s] %(levelname)s [%(pathname)s.%(funcName)s():l%(lineno)d] %(message)s",
+    datefmt="%Y/%m/%d %H:%M:%S",
+    stream=sys.stdout
+)

@@ -10,11 +10,7 @@ services:
       - 8501:8501
       - 8888:8888
     volumes:
-      - .:/project
-    environment:
-      - PATH=/root/.local/bin/poetry:$PATH
-    working_dir: /project
-    command: poetry run python -m base_project.launch --dev
+      - .:/opt/project
     privileged: true
     ipc: host
     tty: true
