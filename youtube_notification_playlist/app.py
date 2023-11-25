@@ -6,6 +6,8 @@ import re
 
 def main():
     st.title("Youtube Notification Playlist")
+    st.image("asset/logo.png", width=100)
+
     st.header("1. Load Notifications")
 
     email    = st.text_input("Enter your Youtube Email")
@@ -41,7 +43,7 @@ def main():
         format = r"^(.*)에서 업로드한 동영상: (.*)[\s]([0-9]+(분|시간|일|주|개월|년) 전)$"
         for text, link in zip(texts, links):
             uploader, name, time, _ = re.search(format, text).groups()
-            cols = st.columns(2)
+            cols = st.columns([1, 3])
             cols[0].video(link)
             cols[1].write(f"## {name}")
             cols[1].write(f"#### by {uploader}")
