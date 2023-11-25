@@ -27,7 +27,7 @@ import logging
 
 
 # External library
-# import yaml
+import yaml
 # import numpy as np
 # from tqdm import tqdm, trange
 # import pandas as pd
@@ -80,7 +80,7 @@ warnings.filterwarnings('ignore')
 
 # Logging
 logging.basicConfig(
-    level=logging.DEBUG,
+    level=logging.WARNING,
     format="[%(asctime)s] %(levelname)s [%(pathname)s.%(funcName)s():l%(lineno)d] %(message)s",
     datefmt="%Y/%m/%d %H:%M:%S",
     stream=sys.stdout
