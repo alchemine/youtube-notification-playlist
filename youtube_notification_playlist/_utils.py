@@ -48,10 +48,10 @@ def st_stdout(dst):
 
 def get_chromedriver(url):
     options = uc.ChromeOptions()
-    #     options.add_argument('--no-sandbox')
-    #     options.add_argument('--disable-setuid-sandbox')
-    #     options.add_argument('--headless')
-    #     options.add_argument('--disable-dev-shm-usage')
+    # options.add_argument('--no-sandbox')
+    # options.add_argument('--disable-setuid-sandbox')
+    # options.add_argument('--headless')
+    # options.add_argument('--disable-dev-shm-usage')
 
     driver = uc.Chrome(options)
     driver.get(url)

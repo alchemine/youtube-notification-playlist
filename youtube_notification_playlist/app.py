@@ -12,7 +12,7 @@ def main():
 
     email    = st.text_input("Enter your Youtube Email")
     password = st.text_input("Enter your Youtube Password", type='password')
-    # account = yaml2dict("configs.yml")
+    # account  = yaml2dict("configs.yml")
     # email    = account['email']
     # password = account['password']
 
