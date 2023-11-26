@@ -50,8 +50,9 @@ def get_chromedriver(url):
     options = uc.ChromeOptions()
     # options.add_argument('--no-sandbox')
     # options.add_argument('--disable-setuid-sandbox')
-    # options.add_argument('--headless')
+    options.add_argument('--headless')
     # options.add_argument('--disable-dev-shm-usage')
+    options.add_argument('--user-agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36')
 
     driver = uc.Chrome(options)
     driver.get(url)

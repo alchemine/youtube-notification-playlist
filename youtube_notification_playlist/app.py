@@ -15,7 +15,6 @@ def main():
     # account  = yaml2dict("configs.yml")
     # email    = account['email']
     # password = account['password']
-
     if 'load_notifications' not in st.session_state:
         st.session_state.load_notifications = False
     if st.button("Start"):
@@ -25,24 +24,37 @@ def main():
         with st.spinner("In progress.."):
             # control web browser
             driver = get_chromedriver("https://youtube.com")
-            click_button_retry(driver, "[aria-label='로그인']")
+            st.success("[SUCCESS] Open https://youtube.com")
+
+            click_button_retry(driver, "#buttons > ytd-button-renderer > yt-button-shape > a")
+            st.success("[SUCCESS] Open Sign in")
+
             submit_text_retry(driver, email)
-            submit_text_retry(driver, password)
-            click_button_retry(driver,"#button > yt-icon-badge-shape > div > div > yt-icon > yt-icon-shape > icon-shape > div")
+            st.success("[SUCCESS] Submit Email address")
+
+            submit_text_retry(driver, password, sleep_before=4)
+            st.success("[SUCCESS] Submit Password")
+
+            click_button_retry(driver,"#button > yt-icon-badge-shape > div > div > yt-icon > yt-icon-shape > icon-shape > div", sleep_before=4)
+            st.success("[SUCCESS] Open Notifications")
+
             scroll_notifications(driver)
             texts, links = get_notification_links(driver)
-            driver.close()
+            st.success(f"[SUCCESS] Load Notifications: Latest {len(links)} videos")
 
-        with st_stdout("success"):
-            print(f"[SUCCESS] Load Notifications: Latest {len(links)} videos")
+            driver.close()
 
 
         st.header("")
         st.header("2. Youtube Notification Playlist")
 
-        format = r"^(.*)에서 업로드한 동영상: (.*)[\s]([0-9]+(분|시간|일|주|개월|년) 전)$"
+        format_ko = r"^(.*)에서 업로드한 동영상: (.*)[\s]([0-9]+(초|분|시간|일|주|개월|년) 전)$"
+        format_en = r"^(.*) uploaded: (.*)[\s]([0-9]+(second|minute|hour|day|week|month|year)(s)? ago)$"
         for text, link in zip(texts, links):
-            uploader, name, time, _ = re.search(format, text).groups()
+            if (rst := re.search(format_ko, text)) is None:
+                rst = re.search(format_en, text)
+            uploader, name, time, *_ = rst.groups()
+
             cols = st.columns([1, 3])
             cols[0].video(link)
             cols[1].write(f"## {name}")
