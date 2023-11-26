@@ -1,7 +1,6 @@
 from youtube_notification_playlist._utils import *
 
 import streamlit as st
-import re
 
 
 def main():
