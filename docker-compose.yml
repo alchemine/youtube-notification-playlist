@@ -11,6 +11,10 @@ services:
       - 8888:8888
     volumes:
       - .:/opt/project
+    environment:
+      - PATH=/root/.local/bin/poetry:$PATH
+    working_dir: /opt/project
+    command: poetry run python -m streamlit run youtube_notification_playlist/app.py
     privileged: true
     ipc: host
     tty: true
