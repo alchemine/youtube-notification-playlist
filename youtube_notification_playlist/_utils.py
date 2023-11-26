@@ -12,7 +12,9 @@ from contextlib import contextmanager
 import undetected_chromedriver as uc
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.chrome.service import Service
 from selenium.common.exceptions import NoSuchElementException
+from webdriver_manager.chrome import ChromeDriverManager
 
 import streamlit as st
 from streamlit.runtime.scriptrunner.script_run_context import SCRIPT_RUN_CONTEXT_ATTR_NAME
@@ -53,8 +55,8 @@ def get_chromedriver(url):
     options.add_argument('--headless')
     # options.add_argument('--disable-dev-shm-usage')
     options.add_argument('--user-agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36')
-
-    driver = uc.Chrome(options)
+    # driver = uc.Chrome(options)
+    driver = uc.Chrome(service=Service(ChromeDriverManager().install()), options=options)
     driver.get(url)
     return driver
 
