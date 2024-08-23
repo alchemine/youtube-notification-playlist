@@ -47,6 +47,9 @@ def main():
             submit_text_retry(driver, password, sleep_before=4)
             st.success("[SUCCESS] Submit Password")
 
+            html = driver.page_source
+            st.info(html)
+
             click_button_retry(driver, "button#button", sleep_before=4)
             st.success("[SUCCESS] Open Notifications")
 
