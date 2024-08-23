@@ -64,7 +64,7 @@ def get_chromedriver(url):
     driver = uc.Chrome(
         service=Service(ChromeDriverManager().install()),
         options=options,
-        version_main=128,
+        version_main=120,
     )
     driver.get(url)
     return driver
