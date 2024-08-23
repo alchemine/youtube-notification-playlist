@@ -47,11 +47,7 @@ def main():
             submit_text_retry(driver, password, sleep_before=4)
             st.success("[SUCCESS] Submit Password")
 
-            click_button_retry(
-                driver,
-                "#button > yt-icon-badge-shape > div > div > yt-icon > span > div",
-                sleep_before=4,
-            )
+            click_button_retry(driver, "button#button", sleep_before=4)
             st.success("[SUCCESS] Open Notifications")
 
             scroll_notifications(driver)
