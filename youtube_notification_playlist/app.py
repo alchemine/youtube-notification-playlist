@@ -49,12 +49,12 @@ def main():
 
             try:
                 click_button(driver, f"div[role='link'][data-identifier='{email}']")
+                st.success("[SUCCESS] Pass authentification")
+                st.success("[SUCCESS] Enter YouTube Home")
             except:
-                pass
-            st.success("[SUCCESS] Enter YouTube Home")
-
-            elem = driver.find_element(By.CSS_SELECTOR, "div")
-            print("div.text:", elem.text)
+                st.info("[INFO] No need for authentification or failure")
+                elem = driver.find_element(By.CSS_SELECTOR, "div")
+                st.info(elem.text)
 
             elem = driver.find_element(By.CSS_SELECTOR, "button#button")
             print(elem)
