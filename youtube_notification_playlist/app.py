@@ -22,7 +22,12 @@ def main():
     if st.session_state.load_notifications:
         with st.spinner("In progress.."):
             # control web browser
-            driver = get_chromedriver("https://youtube.com")
+            try:
+                driver = get_chromedriver("https://youtube.com")
+            except Exception as e:
+                st.error(f"{e}")
+                return
+
             st.success("[SUCCESS] Open https://youtube.com")
 
             click_button_retry(
