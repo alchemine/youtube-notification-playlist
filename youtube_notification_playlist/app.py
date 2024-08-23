@@ -53,7 +53,7 @@ def main():
             except:
                 pass
 
-            click_button_retry(
+            click_button(
                 driver,
                 "button#button div.yt-spec-icon-badge-shape__icon",
                 sleep_before=4,
