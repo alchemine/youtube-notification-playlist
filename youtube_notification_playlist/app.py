@@ -1,3 +1,9 @@
+import sys
+from os.path import abspath, dirname
+
+sys.path.append(dirname(dirname(abspath(__file__))))
+
+
 from youtube_notification_playlist._utils import *
 
 from os import environ
