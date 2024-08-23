@@ -64,7 +64,7 @@ def get_chromedriver(url):
     driver = uc.Chrome(
         service=Service(ChromeDriverManager().install()),
         options=options,
-        version_main=120,
+        version_main=128,
     )
     driver.get(url)
     return driver
@@ -81,6 +81,13 @@ def submit_text_retry(driver, text, sleep_before=2, sleep_after=0):
 
 @retry(wait_fixed=2000)
 def click_button_retry(driver, selector, sleep_before=2, sleep_after=0):
+    sleep(sleep_before)
+    button = driver.find_element(By.CSS_SELECTOR, selector)
+    button.click()
+    sleep(sleep_after)
+
+
+def click_button(driver, selector, sleep_before=2, sleep_after=0):
     sleep(sleep_before)
     button = driver.find_element(By.CSS_SELECTOR, selector)
     button.click()

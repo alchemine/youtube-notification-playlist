@@ -48,14 +48,16 @@ def main():
             st.success("[SUCCESS] Submit Password")
 
             try:
-                click_button_retry(
-                    driver, f"div[role='link'][data-identifier='{email}']"
-                )
+                click_button(driver, f"div[role='link'][data-identifier='{email}']")
                 st.success("[SUCCESS] Enter YouTube Home")
             except:
                 pass
 
-            click_button_retry(driver, "button#button", sleep_before=4)
+            click_button_retry(
+                driver,
+                "button#button div.yt-spec-icon-badge-shape__icon",
+                sleep_before=4,
+            )
             st.success("[SUCCESS] Open Notifications")
 
             scroll_notifications(driver)
