@@ -1,0 +1,59 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/docker-existing-dockerfile
+{
+  "name": "Existing Dockerfile",
+  "build": {
+    "context": "..",
+    "dockerfile": "../Dockerfile"
+  },
+
+  // Configure tool-specific properties.
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-toolsai.jupyter",
+        "GitHub.vscode-pull-request-github",
+        "esbenp.prettier-vscode",
+        "ms-python.black-formatter",
+        "GitHub.copilot",
+        "donjayamanne.githistory",
+        "eamodio.gitlens"
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "githubIssues.issueBranchTitle": "feature/${issueNumber}-${sanitizedIssueTitle}",
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "notebook.formatOnSave.enabled": true,
+        "jupyter.notebookFileRoot": "${workspaceFolder}",
+        "[python]": {
+          "editor.formatOnSave": true,
+          "editor.defaultFormatter": "ms-python.black-formatter"
+        },
+        "files.exclude": {
+          "**/__pycache__": true
+        },
+        "python.testing.pytestEnabled": true,
+        "python.testing.pytestArgs": ["-s", "-vv", "tests"]
+      }
+    }
+  },
+
+  "mounts": ["source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind"],
+  "workspaceMount": "source=${localWorkspaceFolder},target=/app,type=bind",
+  "workspaceFolder": "/app",
+
+  "containerEnv": {
+    "PYTHONPATH": "/app"
+  }
+  // "postCreateCommand": "bash .devcontainer/postCreate.sh"
+
+  // Use 'forwardPorts' to make a list of ports inside the container available locally.
+  // "forwardPorts": [],
+
+  // Features to add to the dev container. More info: https://containers.dev/features.
+  // "features": {
+  //   "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
+  // },
+}

@@ -1,26 +1,49 @@
-# syntax=docker/dockerfile:1
-FROM alchemine/base-cuda:11.8.0-cudnn8-runtime-ubuntu22.04
-LABEL maintainer="alchemine <djyoon0223@gmail.com>"
+# Use the Python base image
+ARG VARIANT="3.11-bullseye"
+FROM mcr.microsoft.com/devcontainers/python:0-${VARIANT}
 
-SHELL ["/bin/bash", "-ic"]
+# Define the version of Poetry to install
+ARG POETRY_VERSION=1.8.3
+ENV POETRY_VIRTUALENVS_IN_PROJECT=false \
+    POETRY_NO_INTERACTION=true
 
-# install google-chrome-stable (version: 119)
-RUN apt update
+# Set the timezone to Asia/Seoul
+ENV TZ Asia/Seoul
+RUN sudo ln -snf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
 
-RUN wget -q http://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_119.0.6045.159-1_amd64.deb && \
-    apt install -yqq ./google-chrome-stable_119.0.6045.159-1_amd64.deb && \
-    rm google-chrome-stable_119.0.6045.159-1_amd64.deb && \
-    rm -rf /var/lib/apt/lists/*
+# Set project directory
+WORKDIR /app
+ENV PYTHONPATH=/app
 
-# generate environment in project directory
-WORKDIR /opt/project
+# Create a Python virtual environment for Poetry and install it
+RUN pipx install poetry==${POETRY_VERSION}
 
-## copy poetry configurations
-#COPY poetry.lock pyproject.toml /opt/project/
-#
-## install python environment
-#RUN poetry env use python3.10 && \
-#    poetry install --no-root
-#
-## copy all files
-#COPY . /opt/project
+# Setup for bash
+RUN poetry completions bash >> /home/vscode/.bash_completion && \
+    echo "export PATH=.:$PATH" >> ~/.bashrc
+
+# Install Google Chrome
+# https://mirror.cs.uchicago.edu/google-chrome/pool/main/g/google-chrome-stable/
+RUN sudo apt update && \
+    wget -q https://mirror.cs.uchicago.edu/google-chrome/pool/main/g/google-chrome-stable/google-chrome-stable_128.0.6613.84-1_amd64.deb && \
+    sudo apt install -yqq ./google-chrome-stable_128.0.6613.84-1_amd64.deb && \
+    rm google-chrome-stable_128.0.6613.84-1_amd64.deb && \
+    sudo rm -rf /var/lib/apt/lists/*
+
+# Copy the project files
+COPY pyproject.toml poetry.lock ./
+
+# Install dependencies
+RUN poetry install
+
+# Copy the project files
+COPY . .
+
+# Expose the Streamlit port
+EXPOSE 8501
+
+# Healthcheck
+HEALTHCHECK CMD curl --fail http://localhost:8501/_stcore/health
+
+# Open Streamlit server
+ENTRYPOINT [ "poetry", "run", "streamlit", "run", "youtube_notification_playlist/app.py" ]

@@ -1,5 +1,6 @@
 from youtube_notification_playlist._utils import *
 
+from os import environ
 import streamlit as st
 
 
@@ -9,12 +10,11 @@ def main():
 
     st.header("1. Load Notifications")
 
-    email    = st.text_input("Enter your Youtube Email")
-    password = st.text_input("Enter your Youtube Password", type='password')
-    # account  = yaml2dict("configs.yml")
-    # email    = account['email']
-    # password = account['password']
-    if 'load_notifications' not in st.session_state:
+    email = st.text_input("Enter your Youtube Email", value=environ.get("email"))
+    password = st.text_input(
+        "Enter your Youtube Password", type="password", value=environ.get("password")
+    )
+    if "load_notifications" not in st.session_state:
         st.session_state.load_notifications = False
     if st.button("Start"):
         st.session_state.load_notifications = True
@@ -25,7 +25,9 @@ def main():
             driver = get_chromedriver("https://youtube.com")
             st.success("[SUCCESS] Open https://youtube.com")
 
-            click_button_retry(driver, "#buttons > ytd-button-renderer > yt-button-shape > a")
+            click_button_retry(
+                driver, "#buttons > ytd-button-renderer > yt-button-shape > a"
+            )
             st.success("[SUCCESS] Open Sign in")
 
             submit_text_retry(driver, email)
@@ -34,7 +36,11 @@ def main():
             submit_text_retry(driver, password, sleep_before=4)
             st.success("[SUCCESS] Submit Password")
 
-            click_button_retry(driver,"#button > yt-icon-badge-shape > div > div > yt-icon > yt-icon-shape > icon-shape > div", sleep_before=4)
+            click_button_retry(
+                driver,
+                "#button > yt-icon-badge-shape > div > div > yt-icon > span > div",
+                sleep_before=4,
+            )
             st.success("[SUCCESS] Open Notifications")
 
             scroll_notifications(driver)
@@ -43,16 +49,16 @@ def main():
 
             driver.close()
 
-
         st.header("")
         st.header("2. Youtube Notification Playlist")
-
-        format_ko = r"^(.*)에서 업로드한 동영상: (.*)[\s]([0-9]+(초|분|시간|일|주|개월|년) 전)$"
-        format_en = r"^(.*) uploaded: (.*)[\s]([0-9]+(second|minute|hour|day|week|month|year)(s)? ago)$"
         for text, link in zip(texts, links):
-            if (rst := re.search(format_ko, text)) is None:
-                rst = re.search(format_en, text)
-            uploader, name, time, *_ = rst.groups()
+            extracted_info = extract(text)
+            if not extracted_info:
+                continue
+
+            name = extracted_info["name"]
+            uploader = extracted_info["uploader"]
+            time = extracted_info["time"]
 
             cols = st.columns([1, 3])
             cols[0].video(link)
@@ -61,6 +67,6 @@ def main():
             cols[1].write(time)
 
 
-if __name__ == '__main__':
-    st.set_page_config(layout="wide", initial_sidebar_state='collapsed')
+if __name__ == "__main__":
+    st.set_page_config(layout="wide", initial_sidebar_state="collapsed")
     main()
