@@ -47,23 +47,31 @@ def main():
             submit_text_retry(driver, password, sleep_before=4)
             st.success("[SUCCESS] Submit Password")
 
-            try:
-                submit_text_retry(driver, password, sleep_before=4)
-                st.success("[SUCCESS] Submit Password")
+            # Authentification in Selenium Cloud
+            while True:
+                try:
+                    elem = driver.find_element(By.CSS_SELECTOR, "button#button")
+                    st.success("[SUCCESS] No need for more authentification")
+                    break
+                except:
+                    pass
 
-                click_button(driver, f"div[role='link'][data-identifier='{email}']")
-                st.success("[SUCCESS] Pass authentification")
-                st.success("[SUCCESS] Enter YouTube Home")
-            except:
-                st.info("[INFO] No need for authentification or failure")
-                elems = driver.find_elements(By.CSS_SELECTOR, "div")
-                for elem in elems:
-                    st.info(elem.text)
-                    # get div html
-                    st.info(elem.get_attribute("outerHTML"))
+                try:
+                    submit_text_retry(driver, password, sleep_before=4)
+                    st.success("[SUCCESS] Submit Password 1")
 
-            elem = driver.find_element(By.CSS_SELECTOR, "button#button")
-            print(elem)
+                    # click_button(driver, f"div[role='link'][data-identifier='{email}']")
+                    # st.success("[SUCCESS] Pass authentification")
+                    # st.success("[SUCCESS] Enter YouTube Home")
+                except:
+                    st.error("[ERROR] Authentification failed")
+                    for _ in range(3):
+                        elems = driver.find_elements(By.CSS_SELECTOR, "div")
+                        for elem in elems:
+                            st.info(elem.text)
+                        sleep(10)
+
+            # elem = driver.find_element(By.CSS_SELECTOR, "button#button")
             click_button(
                 driver,
                 "button#button div.yt-spec-icon-badge-shape__icon",
