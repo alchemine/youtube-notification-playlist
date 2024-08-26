@@ -48,6 +48,9 @@ def main():
             st.success("[SUCCESS] Submit Password")
 
             try:
+                submit_text_retry(driver, password, sleep_before=4)
+                st.success("[SUCCESS] Submit Password")
+
                 click_button(driver, f"div[role='link'][data-identifier='{email}']")
                 st.success("[SUCCESS] Pass authentification")
                 st.success("[SUCCESS] Enter YouTube Home")
