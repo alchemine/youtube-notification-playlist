@@ -1,0 +1,23 @@
+{
+  "configurations": [
+    {
+      "name": "Python Debugger: Current File",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${file}",
+      "console": "integratedTerminal",
+      "justMyCode": false,
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}"
+      }
+    },
+    {
+      "name": "streamlit debug",
+      "type": "python",
+      "request": "launch",
+      "module": "streamlit",
+      "args": ["run", "${file}"],
+      "justMyCode": true
+    }
+  ]
+}
