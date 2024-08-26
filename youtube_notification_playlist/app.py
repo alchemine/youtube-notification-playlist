@@ -53,8 +53,9 @@ def main():
                 st.success("[SUCCESS] Enter YouTube Home")
             except:
                 st.info("[INFO] No need for authentification or failure")
-                elem = driver.find_element(By.CSS_SELECTOR, "div")
-                st.info(elem.text)
+                elems = driver.find_elements(By.CSS_SELECTOR, "div")
+                for elem in elems:
+                    st.info(elem.text)
 
             elem = driver.find_element(By.CSS_SELECTOR, "button#button")
             print(elem)
