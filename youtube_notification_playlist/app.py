@@ -56,6 +56,8 @@ def main():
                 elems = driver.find_elements(By.CSS_SELECTOR, "div")
                 for elem in elems:
                     st.info(elem.text)
+                    # get div html
+                    st.info(elem.get_attribute("outerHTML"))
 
             elem = driver.find_element(By.CSS_SELECTOR, "button#button")
             print(elem)
